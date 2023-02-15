@@ -1,0 +1,18 @@
+version: "3.9"
+services:
+  peer_1:
+    build: ./build
+    ports:
+      - 4040:4040
+    environment:
+      - BOOT_PEER_HOST=peer_2
+  peer_2:
+    build: ./build
+    environment:
+      - BOOT_PEER_HOST=peer_1
+  peer_scale:
+    build: ./build
+    deploy:
+      replicas: 12
+    environment:
+      - BOOT_PEER_HOST=peer_1
